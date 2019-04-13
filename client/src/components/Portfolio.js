@@ -41,7 +41,23 @@ class Portfolio extends Component {
           <TransitionGroup className="transactions-list">
             {transactions.map(({ id, code }) => (
               <CSSTransition key={id} timeout={500} classNames="fade">
-                <ListGroupItem>{code}</ListGroupItem>
+                <ListGroupItem>
+                  <Button
+                    className="remove-btn"
+                    color="danger"
+                    size="sm"
+                    onClick={() => {
+                      this.setState(state => ({
+                        transactions: state.transactions.filter(
+                          transaction => transaction.id !== id
+                        )
+                      }));
+                    }}
+                  >
+                    &times;
+                  </Button>
+                  {code}
+                </ListGroupItem>
               </CSSTransition>
             ))}
           </TransitionGroup>
