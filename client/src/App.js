@@ -1,16 +1,27 @@
 import React, { Component } from "react";
 import AppNavbar from "./components/AppNavbar";
 import Portfolio from "./components/Portfolio";
+import TransactionModal from "./components/TransactionModal";
+import { Container } from "reactstrap";
+
+import { Provider } from "react-redux";
+import store from "./store";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <AppNavbar />
-        <Portfolio />
-      </div>
+      <Provider store={store}>
+        <div className="App">
+          <AppNavbar />
+          <Container>
+            <TransactionModal />
+            <Portfolio />
+          </Container>
+        </div>
+      </Provider>
     );
   }
 }

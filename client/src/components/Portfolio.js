@@ -1,42 +1,26 @@
 import React, { Component } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import uuid from "uuid";
+import { connect } from "react-redux";
+import {
+  getTransactions,
+  deleteTransactions
+} from "../actions/transactionActions";
+import PropTypes from "prop-types";
 
 class Portfolio extends Component {
-  state = {
-    transactions: [
-      { id: uuid(), code: "AAPL", shareQty: 1, sharePrice: 10, type: "Buy" },
-      { id: uuid(), code: "QSR", shareQty: 2, sharePrice: 14, type: "Sell" },
-      { id: uuid(), code: "T", shareQty: 4, sharePrice: 12, type: "Buy" },
-      { id: uuid(), code: "EMA", shareQty: 3, sharePrice: 15, type: "Sell" }
-    ]
+  componentDidMount() {
+    this.props.getTransactions();
+  }
+
+  onDeleteClick = id => {
+    this.props.deleteTransactions(id);
   };
 
   render() {
-    const { transactions } = this.state;
+    const { transactions } = this.props.transaction;
     return (
       <Container>
-        <Button
-          color="dark"
-          style={{ marginBottom: "2rem" }}
-          onClick={() => {
-            const code = prompt("Enter stock code:");
-            const shareQty = prompt("Enter share qty:");
-            const sharePrice = prompt("Enter share price:");
-            const type = prompt("Enter type of transaction:");
-            if (sharePrice && code && shareQty && type) {
-              this.setState(state => ({
-                transactions: [
-                  ...state.transactions,
-                  { id: uuid(), code, shareQty, sharePrice, type }
-                ]
-              }));
-            }
-          }}
-        >
-          Add Transaction
-        </Button>
         <ListGroup>
           <TransitionGroup className="transactions-list">
             {transactions.map(({ id, code }) => (
@@ -46,13 +30,7 @@ class Portfolio extends Component {
                     className="remove-btn"
                     color="danger"
                     size="sm"
-                    onClick={() => {
-                      this.setState(state => ({
-                        transactions: state.transactions.filter(
-                          transaction => transaction.id !== id
-                        )
-                      }));
-                    }}
+                    onClick={this.onDeleteClick.bind(this, id)}
                   >
                     &times;
                   </Button>
@@ -67,4 +45,16 @@ class Portfolio extends Component {
   }
 }
 
-export default Portfolio;
+Portfolio.propTypes = {
+  getTransactions: PropTypes.func.isRequired,
+  transaction: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  transaction: state.transaction
+});
+
+export default connect(
+  mapStateToProps,
+  { getTransactions, deleteTransactions }
+)(Portfolio);
