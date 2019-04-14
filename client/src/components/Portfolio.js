@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { Container, Button, Table } from "reactstrap";
 import { connect } from "react-redux";
 import {
   getTransactions,
@@ -21,25 +20,41 @@ class Portfolio extends Component {
     const { transactions } = this.props.transaction;
     return (
       <Container>
-        <ListGroup>
-          <TransitionGroup className="transactions-list">
-            {transactions.map(({ id, code }) => (
-              <CSSTransition key={id} timeout={500} classNames="fade">
-                <ListGroupItem>
+        <Table striped hover>
+          <thead>
+            <tr>
+              <th>Stock Code</th>
+              <th>Share Quantity</th>
+              <th>Share Price</th>
+              <th>Total Cost</th>
+              <th>Type Transaction</th>
+              <th>Date</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {transactions.map(transaction => (
+              <tr>
+                <th scope="row">{transaction.code}</th>
+                <td>{transaction.shareQty}</td>
+                <td>${transaction.sharePrice}</td>
+                <td>${transaction.sharePrice * transaction.shareQty}</td>
+                <td>{transaction.type}</td>
+                <td>{transaction.date}</td>
+                <td>
                   <Button
                     className="remove-btn"
                     color="danger"
                     size="sm"
-                    onClick={this.onDeleteClick.bind(this, id)}
+                    onClick={this.onDeleteClick.bind(this, transaction.id)}
                   >
                     &times;
                   </Button>
-                  {code}
-                </ListGroupItem>
-              </CSSTransition>
+                </td>
+              </tr>
             ))}
-          </TransitionGroup>
-        </ListGroup>
+          </tbody>
+        </Table>
       </Container>
     );
   }

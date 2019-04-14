@@ -18,7 +18,9 @@ class TransactionModal extends Component {
     modal: false,
     code: "",
     sharePrice: null,
-    shareQty: null
+    shareQty: null,
+    type: "",
+    date: null
   };
 
   toggle = () => {
@@ -35,17 +37,37 @@ class TransactionModal extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+    if (
+      !this.state.code ||
+      !this.state.shareQty ||
+      !this.state.type ||
+      !this.state.date
+    ) {
+      return;
+    }
     const newTransaction = {
       id: uuid(),
-      code: this.state.code
+      code: this.state.code,
+      shareQty: this.state.shareQty,
+      sharePrice: this.state.sharePrice,
+      type: this.state.type,
+      date: this.state.date
     };
 
     this.props.addTransactions(newTransaction);
+    this.setState({
+      code: "",
+      sharePrice: null,
+      shareQty: null,
+      type: "",
+      date: null
+    });
 
     this.toggle();
   };
 
   render() {
+    const totalCost = this.state.sharePrice * this.state.shareQty;
     return (
       <div>
         <Button
@@ -68,6 +90,61 @@ class TransactionModal extends Component {
                   placeholder="Add stock code"
                   onChange={this.onChange}
                 />
+              </FormGroup>
+              <FormGroup>
+                <Label for="shareQty">Share Quantity</Label>
+                <Input
+                  type="number"
+                  name="shareQty"
+                  id="shareQty"
+                  placeholder="Add share quantity"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="sharePrice">Share Price</Label>
+                <Input
+                  type="number"
+                  name="sharePrice"
+                  id="sharePrice"
+                  placeholder="Add share price"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="totalCost">Total Cost</Label>
+                <Input
+                  type="text"
+                  name="totalCost"
+                  id="totalCost"
+                  value={totalCost}
+                  disabled
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="totalCost">Type</Label>
+                <Input
+                  type="select"
+                  name="type"
+                  id="type"
+                  onChange={this.onChange}
+                  defaultValue=""
+                >
+                  <option value="">Select type</option>
+                  <option value="Buy">Buy</option>
+                  <option value="Sell">Sell</option>
+                </Input>
+              </FormGroup>
+              <FormGroup>
+                <Label for="date">Date</Label>
+                <Input
+                  type="date"
+                  name="date"
+                  id="date"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+              <FormGroup>
                 <Button color="dark" style={{ marginTop: "2rem" }} block>
                   Add Transaction
                 </Button>
