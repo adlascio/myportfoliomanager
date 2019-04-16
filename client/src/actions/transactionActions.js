@@ -16,18 +16,22 @@ export const getTransactions = () => dispatch => {
   );
 };
 
-export const deleteTransactions = id => {
-  return {
-    type: DELETE_TRANSACTIONS,
-    payload: id
-  };
+export const deleteTransactions = id => dispatch => {
+  axios.delete(`/api/transactions/${id}`).then(res =>
+    dispatch({
+      type: DELETE_TRANSACTIONS,
+      payload: id
+    })
+  );
 };
 
-export const addTransactions = transaction => {
-  return {
-    type: ADD_TRANSACTIONS,
-    payload: transaction
-  };
+export const addTransactions = transaction => dispatch => {
+  axios.post("/api/transactions", transaction).then(res =>
+    dispatch({
+      type: ADD_TRANSACTIONS,
+      payload: res.data
+    })
+  );
 };
 
 export const setTransactionsLoading = () => {

@@ -11,7 +11,6 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addTransactions } from "../actions/transactionActions";
-import uuid from "uuid";
 
 class TransactionModal extends Component {
   state = {
@@ -46,7 +45,6 @@ class TransactionModal extends Component {
       return;
     }
     const newTransaction = {
-      id: uuid(),
       code: this.state.code,
       shareQty: this.state.shareQty,
       sharePrice: this.state.sharePrice,

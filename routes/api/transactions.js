@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
 // @access Public
 
 router.delete("/:id", (req, res) => {
-  Item.findById(req.params.id)
+  Transaction.findById(req.params.id)
     .then(transaction =>
       transaction.remove().then(() => res.json({ success: true }))
     )

@@ -1,4 +1,3 @@
-import uuid from "uuid";
 import {
   GET_TRANSACTIONS,
   ADD_TRANSACTIONS,
@@ -23,7 +22,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         transactions: state.transactions.filter(
-          transaction => transaction.id !== action.payload
+          transaction => transaction._id !== action.payload
         )
       };
     case ADD_TRANSACTIONS:

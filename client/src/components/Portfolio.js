@@ -34,7 +34,7 @@ class Portfolio extends Component {
           </thead>
           <tbody>
             {transactions.map(transaction => (
-              <tr>
+              <tr key={transaction._id}>
                 <th scope="row">{transaction.code}</th>
                 <td>{transaction.shareQty}</td>
                 <td>${transaction.sharePrice}</td>
@@ -46,7 +46,7 @@ class Portfolio extends Component {
                     className="remove-btn"
                     color="danger"
                     size="sm"
-                    onClick={this.onDeleteClick.bind(this, transaction.id)}
+                    onClick={this.onDeleteClick.bind(this, transaction._id)}
                   >
                     &times;
                   </Button>
