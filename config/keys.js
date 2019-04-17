@@ -1,4 +1,5 @@
-module.exports = {
-  mongoURI:
-    "mongodb://arthur:arthur123@ds139576.mlab.com:39576/myportfoliomanagerdb"
-};
+if (process.env.NODE_ENV === "production") {
+  module.exports = require("./keys_prod");
+} else {
+  module.exports = require("./keys_dev");
+}

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../../middleware/auth");
 
 //Transaction Model
 
@@ -19,7 +20,7 @@ router.get("/", (req, res) => {
 // @desc Create transactions
 // @access Public
 
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
   const newTransaction = new Transaction({
     code: req.body.code,
     shareQty: req.body.shareQty,
@@ -35,7 +36,7 @@ router.post("/", (req, res) => {
 // @desc Delete transactions
 // @access Public
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", auth, (req, res) => {
   Transaction.findById(req.params.id)
     .then(transaction =>
       transaction.remove().then(() => res.json({ success: true }))
