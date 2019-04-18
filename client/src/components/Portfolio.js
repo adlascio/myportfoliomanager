@@ -15,6 +15,10 @@ class Portfolio extends Component {
   onDeleteClick = id => {
     this.props.deleteTransactions(id);
   };
+  static propTypes = {
+    getTransactions: PropTypes.func.isRequired,
+    transaction: PropTypes.object.isRequired
+  };
 
   render() {
     const { transactions } = this.props.transaction;
@@ -59,11 +63,6 @@ class Portfolio extends Component {
     );
   }
 }
-
-Portfolio.propTypes = {
-  getTransactions: PropTypes.func.isRequired,
-  transaction: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => ({
   transaction: state.transaction
