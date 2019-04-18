@@ -120,7 +120,7 @@ class TransactionModal extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="totalCost">Type</Label>
+                <Label for="type">Type</Label>
                 <Input
                   type="select"
                   name="type"

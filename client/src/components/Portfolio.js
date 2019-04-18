@@ -23,11 +23,11 @@ class Portfolio extends Component {
         <Table striped hover>
           <thead>
             <tr>
-              <th>Stock Code</th>
-              <th>Share Quantity</th>
-              <th>Share Price</th>
+              <th>Code</th>
+              <th>Quantity</th>
+              <th>Price</th>
               <th>Total Cost</th>
-              <th>Type Transaction</th>
+              <th>Type</th>
               <th>Date</th>
               <th />
             </tr>
