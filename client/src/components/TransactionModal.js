@@ -105,6 +105,7 @@ class TransactionModal extends Component {
                   type="number"
                   name="sharePrice"
                   id="sharePrice"
+                  step=".01"
                   placeholder="Add share price"
                   onChange={this.onChange}
                 />

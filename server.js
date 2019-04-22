@@ -3,8 +3,10 @@ const mongoose = require("mongoose");
 const path = require("path");
 const items = require("./routes/api/items");
 const transactions = require("./routes/api/transactions");
+const dividends = require("./routes/api/dividends");
 const users = require("./routes/api/users");
 const auth = require("./routes/api/auth");
+const dashboard = require("./routes/api/dashboard");
 const app = express();
 
 //Body parser middleware
@@ -26,9 +28,13 @@ app.use("/api/items", items);
 
 app.use("/api/transactions", transactions);
 
+app.use("/api/dividends", dividends);
+
 app.use("/api/users", users);
 
 app.use("/api/auth", auth);
+
+app.use("/api/dashboard", dashboard);
 
 //Serve static assets if in production
 

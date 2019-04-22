@@ -1,21 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const TransactionSchema = new Schema({
+const DividendSchema = new Schema({
   code: {
     type: String,
     required: true
   },
-  shareQty: {
+  value: {
     type: Number,
-    required: true
-  },
-  sharePrice: {
-    type: Number,
-    required: true
-  },
-  type: {
-    type: String,
     required: true
   },
   date: {
@@ -28,4 +20,4 @@ const TransactionSchema = new Schema({
   }
 });
 
-module.exports = Transaction = mongoose.model("transaction", TransactionSchema);
+module.exports = Dividend = mongoose.model("divindend", DividendSchema);

@@ -1,20 +1,20 @@
 import axios from "axios";
 import {
-  GET_TRANSACTIONS,
-  ADD_TRANSACTIONS,
-  DELETE_TRANSACTIONS,
-  TRANSACTIONS_LOADING
+  GET_DIVIDENDS,
+  ADD_DIVIDENDS,
+  DELETE_DIVIDENDS,
+  DIVIDENDS_LOADING
 } from "./types";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
 
-export const getTransactions = () => (dispatch, getState) => {
-  dispatch(setTransactionsLoading());
+export const getDividends = () => (dispatch, getState) => {
+  dispatch(setDividendsLoading());
   axios
-    .get("/api/transactions", tokenConfig(getState))
+    .get("/api/dividends", tokenConfig(getState))
     .then(res =>
       dispatch({
-        type: GET_TRANSACTIONS,
+        type: GET_DIVIDENDS,
         payload: res.data
       })
     )
@@ -23,12 +23,12 @@ export const getTransactions = () => (dispatch, getState) => {
     );
 };
 
-export const deleteTransactions = id => (dispatch, getState) => {
+export const deleteDividends = id => (dispatch, getState) => {
   axios
-    .delete(`/api/transactions/${id}`, tokenConfig(getState))
+    .delete(`/api/dividends/${id}`, tokenConfig(getState))
     .then(res =>
       dispatch({
-        type: DELETE_TRANSACTIONS,
+        type: DELETE_DIVIDENDS,
         payload: id
       })
     )
@@ -37,12 +37,12 @@ export const deleteTransactions = id => (dispatch, getState) => {
     );
 };
 
-export const addTransactions = transaction => (dispatch, getState) => {
+export const addDividends = transaction => (dispatch, getState) => {
   axios
-    .post("/api/transactions", transaction, tokenConfig(getState))
+    .post("/api/dividends", transaction, tokenConfig(getState))
     .then(res =>
       dispatch({
-        type: ADD_TRANSACTIONS,
+        type: ADD_DIVIDENDS,
         payload: res.data
       })
     )
@@ -51,8 +51,8 @@ export const addTransactions = transaction => (dispatch, getState) => {
     );
 };
 
-export const setTransactionsLoading = () => {
+export const setDividendsLoading = () => {
   return {
-    type: TRANSACTIONS_LOADING
+    type: DIVIDENDS_LOADING
   };
 };

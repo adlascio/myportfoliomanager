@@ -10,8 +10,8 @@ const Transaction = require("../../models/Transaction");
 // @desc Get all transactions
 // @access Public
 
-router.get("/", (req, res) => {
-  Transaction.find()
+router.get("/", auth, (req, res) => {
+  Transaction.find({ userId: req.user.id })
     .sort({ date: -1 })
     .then(transactions => res.json(transactions));
 });
@@ -21,12 +21,14 @@ router.get("/", (req, res) => {
 // @access Public
 
 router.post("/", auth, (req, res) => {
+  console.log("req user", req.user);
   const newTransaction = new Transaction({
     code: req.body.code,
     shareQty: req.body.shareQty,
     sharePrice: req.body.sharePrice,
     type: req.body.type,
-    date: req.body.date
+    date: req.body.date,
+    userId: req.user.id
   });
 
   newTransaction.save().then(transaction => res.json(transaction));
