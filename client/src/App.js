@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import { Switch, Route } from "react-router-dom";
 import AppNavbar from "./components/AppNavbar";
 import Portfolio from "./components/Portfolio";
-import TransactionModal from "./components/TransactionModal";
-import { Container } from "reactstrap";
+import Home from "./components/Home";
+import Dividends from "./components/Dividends";
 
 import { Provider } from "react-redux";
 import store from "./store";
@@ -20,10 +21,11 @@ class App extends Component {
       <Provider store={store}>
         <div className="App">
           <AppNavbar />
-          <Container>
-            <TransactionModal />
-            <Portfolio />
-          </Container>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/transactions" component={Portfolio} />
+            <Route path="/dividends" component={Dividends} />
+          </Switch>
         </div>
       </Provider>
     );

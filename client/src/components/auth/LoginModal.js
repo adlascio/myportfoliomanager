@@ -32,17 +32,12 @@ class LoginModal extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    const { error, isAuthenticated } = this.props;
+    const { error } = this.props;
     if (error !== prevProps.error) {
       if (error.id === "LOGIN_FAIL") {
         this.setState({ msg: error.msg.msg });
       } else {
         this.setState({ msg: null });
-      }
-    }
-    if (this.state.modal) {
-      if (isAuthenticated) {
-        this.toggle();
       }
     }
   }
@@ -71,15 +66,18 @@ class LoginModal extends Component {
 
     this.props.login(user);
 
-    this.toggle();
+    if (this.state.modal) {
+      if (this.props.isAuthenticated) {
+        this.toggle();
+      }
+    }
   };
 
   render() {
-    const totalCost = this.state.sharePrice * this.state.shareQty;
     return (
       <div>
         <NavLink onClick={this.toggle} href="#">
-          Register
+          Login
         </NavLink>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Login</ModalHeader>

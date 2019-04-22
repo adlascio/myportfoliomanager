@@ -40,6 +40,12 @@ class AppNavbar extends Component {
           </span>
         </NavItem>
         <NavItem>
+          <NavLink href="/transactions">Transactions</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/dividends">Dividends</NavLink>
+        </NavItem>
+        <NavItem>
           <Logout />
         </NavItem>
       </Fragment>

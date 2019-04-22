@@ -6,6 +6,7 @@ import {
   deleteTransactions
 } from "../actions/transactionActions";
 import PropTypes from "prop-types";
+import TransactionModal from "./TransactionModal";
 
 class Portfolio extends Component {
   componentDidMount() {
@@ -24,6 +25,7 @@ class Portfolio extends Component {
     const { transactions } = this.props.transaction;
     return (
       <Container>
+        <TransactionModal />
         <Table striped hover>
           <thead>
             <tr>
