@@ -24,7 +24,8 @@ router.post("/", auth, (req, res) => {
   const newDividend = new Dividend({
     code: req.body.code,
     value: req.body.value,
-    date: req.body.date
+    date: req.body.date,
+    userId: req.user.id
   });
 
   newDividend.save().then(dividend => res.json(dividend));

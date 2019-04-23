@@ -3,6 +3,7 @@ import { Container } from "reactstrap";
 import { getDashboard } from "../actions/dashboardActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import StockCard from "./StockCard";
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -16,36 +17,52 @@ class Dashboard extends Component {
 
   render() {
     const { dashboard } = this.props.dashboard;
+    let capitalGains = 0;
+    let dividends = 0;
+    if (dashboard && Object.keys(dashboard).length > 0) {
+      Object.keys(dashboard).forEach(stockCode => {
+        console.log("dashboard stock", dashboard[stockCode]);
+        const stock = dashboard[stockCode];
+        capitalGains +=
+          stock.shareQty * stock.stockPrice -
+          stock.shareQty * stock.averagePrice;
+        capitalGains += dashboard[stockCode].capitalGain
+          ? dashboard[stockCode].capitalGain
+          : 0;
+        dividends += dashboard[stockCode].dividends
+          ? dashboard[stockCode].dividends
+          : 0;
+      });
+    }
+    let totalReturn = capitalGains + dividends;
     return (
       <Container>
-        <h2 className={"m-b-20"}>Dashboard</h2>
-        <div className={"card"}>
-          <div className={"row"}>
-            <div className={"col-6"}>
-              <h5>Stock Name</h5>
-            </div>
-            <div className={"col-6"}>
-              <h5>Stock Price</h5>
-            </div>
+        <h3 className={"m-b-20"}>Dashboard</h3>
+        <div className={"row"} style={{ textAlign: "center" }}>
+          <div className={"col-4"}>
+            <h1>${capitalGains.toFixed(2)}</h1>
+            <h5>Capital Gains</h5>
           </div>
-          <div className={"row"}>
-            <div className={"col-6"}>
-              <h6>Average Price:</h6>
-            </div>
-            <div className={"col-6"} />
+          <div className={"col-4"}>
+            <h1>${dividends.toFixed(2)}</h1>
+            <h5>Dividends</h5>
           </div>
-          <div className={"row"}>
-            <div className={"col-6"}>
-              <h6>Market Value:</h6>
-            </div>
-            <div className={"col-6"} />
+          <div className={"col-4"}>
+            <h1>${totalReturn.toFixed(2)}</h1>
+            <h5>Total Return</h5>
           </div>
-          <div className={"row"}>
-            <div className={"col-6"}>
-              <h6>Total Return:</h6>
-            </div>
-            <div className={"col-6"} />
-          </div>
+        </div>
+        <div className={"row"}>
+          {dashboard && Object.keys(dashboard).length > 0 ? (
+            Object.keys(dashboard).map(stock => {
+              return <StockCard stock={dashboard[stock]} />;
+            })
+          ) : (
+            <h3 style={{ marginTop: "30px" }}>
+              Let's get started! Go to <a href="/transactions">Transactions</a>{" "}
+              and add some to calculate your gains!
+            </h3>
+          )}
         </div>
       </Container>
     );
