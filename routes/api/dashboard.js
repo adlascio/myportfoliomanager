@@ -71,7 +71,6 @@ router.get("/", auth, (req, res) => {
               }`
             )
             .then(response => {
-              console.log("adding price");
               dashboard[stock]["stockPrice"] = Number(
                 response.data["Global Quote"]["05. price"]
               );
@@ -84,7 +83,6 @@ router.get("/", auth, (req, res) => {
       });
       Promise.all(promises)
         .then(() => {
-          console.log("sending res.json");
           res.json(dashboard);
         })
         .catch(console.error);

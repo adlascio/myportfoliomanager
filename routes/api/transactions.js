@@ -21,7 +21,6 @@ router.get("/", auth, (req, res) => {
 // @access Public
 
 router.post("/", auth, (req, res) => {
-  console.log("req user", req.user);
   const newTransaction = new Transaction({
     code: req.body.code,
     shareQty: req.body.shareQty,

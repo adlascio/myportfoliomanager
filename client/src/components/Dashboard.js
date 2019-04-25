@@ -21,7 +21,6 @@ class Dashboard extends Component {
     let dividends = 0;
     if (dashboard && Object.keys(dashboard).length > 0) {
       Object.keys(dashboard).forEach(stockCode => {
-        console.log("dashboard stock", dashboard[stockCode]);
         const stock = dashboard[stockCode];
         capitalGains +=
           stock.shareQty * stock.stockPrice -
